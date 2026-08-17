@@ -16,3 +16,16 @@ ChromiumPlugin_UniversalAutoAssistant
 <br>
 <img width="418" height="894" alt="637192675-1062e252-72e3-43cb-840c-7a7e0b973f37" src="https://github.com/user-attachments/assets/771ed337-3f39-44cc-8dfc-45de868ade28" />
 <br>
+
+УСТАНОВКА:
+<br>
+Скачать. Распаковать в удобную папку. Открыть настройки дополнений Chromium-браузера. Включить режим разработчика. Установить плагин из папки (указать папку). 
+Дайте разрешение на доступ к результатам на странице поиска, иначе виджет не увидит ответы ИИ-чата
+<br>
+<img width="702" height="283" alt="image" src="https://github.com/user-attachments/assets/ed5166f5-1804-49aa-99ea-59fa18da99de" />
+<br>
+Поместить на панель расширений.
+<br>
+<img width="50" height="42" alt="image" src="https://github.com/user-attachments/assets/8ffee03b-ccdd-4e50-91e4-ed11ee1b1974" />
+<br>
+**Full Changelog**: https://github.com/Tat25D/ChromiumPlugin_UniversalAutoAssistant/commits/UniversalAutoAssistant
