@@ -4,6 +4,7 @@ ChromiumPlugin_UniversalAutoAssistant
 <br>
 Плагин для браузеров на базе Chromium, помогающий выбрать авто на самых посещаемых сайтах Ру-нета. 
 Использует чат google AI для оценки авто по множеству параметров.
+Позволяет скачивать данные формате XML + фото.
 <br>
 <img width="400" height="519" alt="637191068-8a296b3a-bcd3-4034-99e5-5c01e5799073" src="https://github.com/user-attachments/assets/e9373239-dbab-4cc4-b9a5-c7a8234be2f0" />
 <img width="405" height="418" alt="637200840-b187f7d0-b14a-495b-af9c-f81617c9a61c" src="https://github.com/user-attachments/assets/e8a9ecdf-5960-431a-b7b0-443d63c0818d" />
