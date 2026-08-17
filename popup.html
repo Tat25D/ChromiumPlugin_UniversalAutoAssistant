@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+:root{--bg:#1e1e1e;--panel:#262626;--border:#3a3a3a;--text:#d6d6d6;--muted:#8f8f8f;--accent:#7c6ff0;--accent-hover:#6a5ce0}
+html,body{width:400px!important;min-width:400px!important;background:var(--bg);margin:0;padding:0;font-family:'Inter',-apple-system,'Segoe UI',Arial,sans-serif;color:var(--text);overflow-x:hidden;}
+.wrapper{width:400px;padding:6px 8px;box-sizing:border-box}
+.hidden{display:none}
+.hdr{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.hdr .logo{color:var(--accent);font-weight:800}
+.hdr .title{flex:1;font-size:13px;font-weight:700;color:#eee}
+.icon-btn{background:transparent;border:none;color:#cfcfcf;cursor:pointer;border-radius:6px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:16px;flex:none}
+.icon-btn:hover{background:#333;color:#fff}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:4px 8px;margin-bottom:5px}
+.card-accent{border-color:#57499b;background:linear-gradient(180deg,#2a2640,#262626)}
+.card-title{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.hint{font-size:9.5px;color:#777;margin-top:2px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:2px 0;cursor:pointer;font-size:12px}
+.row input[type="checkbox"]{position:absolute;opacity:0;pointer-events:none}
+.sw{width:32px;height:18px;border-radius:9px;background:#3a3a3a;position:relative;transition:.2s;flex:none}
+.sw::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#999;transition:.2s}
+.row input:checked+.sw{background:var(--accent)}
+.row input:checked+.sw::after{left:16px;background:#fff}
+.num{width:70px;padding:3px 6px;text-align:center;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;font-weight:600;box-sizing:border-box}
+.sel{width:100%;margin:3px 0 2px;padding:5px 8px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;box-sizing:border-box}
+.txt{width:100%;margin:2px 0 4px;padding:5px 8px;box-sizing:border-box;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:11.5px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:7px 10px;margin-top:5px;border:none;border-radius:7px;background:#323232;color:#e8e8e8;font-size:12px;font-weight:600;cursor:pointer;box-sizing:border-box}
+.btn:hover{background:#3d3d3d}
+.btn:disabled{opacity:.5;cursor:default}
+.btn.primary{background:var(--accent);color:#fff}
+.btn.primary:hover{background:var(--accent-hover)}
+.btn.danger{background:#4a2b2b;color:#e0a5a5}
+.btn.back{margin:0 0 5px}
+.btn-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:4px;margin-top:5px}
+.btn-row .btn{margin:0;padding:7px 2px;font-size:10.5px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;column-gap:8px}
+.sites-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px}
+.btn-site{padding:7px 4px;background:#2d2d2d;border:1px solid var(--border);border-radius:6px;color:#e8e8e8;font-size:11px;font-weight:700;cursor:pointer;text-align:center}
+.btn-site:hover{background:#383838;border-color:var(--accent);color:#fff}
+.queue{background:#2a2a2a;border:1px solid var(--border);border-radius:6px;padding:5px 8px;margin-bottom:5px;font-size:11px;color:var(--muted)}
+.qtitle{color:#c9c9c9;font-weight:600;margin-bottom:3px}
+.qitem{margin:1px 0}
+.qitem b{ color:#ddd; }
+.qbtn{ background:#4a2b2b; color:#e0a5a5; border:none; border-radius:4px; font-size:9px; padding:1px 5px; margin-left:6px; cursor:pointer; }
+.qbtn:hover{ background:#5a3333; }
+#diagBox .qitem{ font-size:11px; }
+.slider{-webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:3px;background:var(--border);outline:none;margin-top:5px;}
+.slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid #fff;}
+.slider::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid #fff;}
+</style>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="viewMain">
+            <div class="hdr">
+                <span class="logo">⚡</span>
+                <span class="title">Universal Auto Assistant</span>
+                <button id="btnDiag" class="icon-btn" title="Диагностика">🩺</button>
+                <button id="btnOpenSettings" class="icon-btn" title="Продвинутые настройки">⚙</button>
+            </div>
+            <div id="queueBox" class="queue" style="display:none">
+                <div class="qtitle">Очередь сохранений</div>
+                <div id="queueList"></div>
+            </div>
+            <div id="diagBox" class="queue" style="display:none"></div>
+            <div class="card">
+                <div class="card-title">Быстрый переход</div>
+                <div class="sites-row">
+                <button class="btn-site" data-site="avito">Avito</button>
+                <button class="btn-site" data-site="drom">Дром</button>
+                <button class="btn-site" data-site="autoru">Авто.ру</button>
+                </div>
+            </div>
+            <div class="card card-accent">
+                <div class="card-title">Предварителная оценка AI</div>
+                <label class="row">
+                    <span>Предварителная оценка AI (виджет на странице)</span>
+                        <input type="checkbox" id="chkAiScore">
+                    <span class="sw"></span>
+                </label>
+                <label class="row">
+                <span>+ фото (всегда, на всех страницах)</span>
+                <input type="checkbox" id="chkPhotoAlways"><span class="sw"></span>
+                </label>
+            </div>
+            <div class="card">
+                <div class="card-title">Авто для сравнения</div>
+                <select id="selCompare" class="sel"></select>
+            </div>
+            <div class="card">
+                <div class="card-title">Экспорт в ZIP</div>
+                <label class="row"><span>Сохранять фото в ZIP</span><input type="checkbox" id="chkSavePhotos"><span class="sw"></span></label>
+                <label class="row"><span>AI эксперт: отчёт по авто (ZIP)</span><input type="checkbox" id="chkAiReport"><span class="sw"></span></label>
+                <label class="row"><span>AI эксперт: сравнение (ZIP)</span><input type="checkbox" id="chkAiCompare"><span class="sw"></span></label>
+                <label class="row"><span>Закрывать вкладки ИИ (ZIP)</span><input type="checkbox" id="chkCloseAiTabs"><span class="sw"></span></label>
+                <button id="btnSave" class="btn primary">Сохранить данные (<span id="hotkeyLabel">Alt+G</span>)</button>
+            </div>
+            <div class="btn-row">
+                <button id="btnAiReport" class="btn">Отчёт</button>
+                <button id="btnAiCompare" class="btn">Сравнение</button>
+                <button id="btnAiCheck" class="btn">Проверка</button>
+                <button id="btnAiProblems" class="btn">Проблемность</button>
+                <button id="btnAiRegistration" class="btn">Оформление</button>
+        </div>
+        <div class="card">
+            <div class="card-title">Пороги отсечения (Стоп!)</div>
+            <div class="row" style="padding: 2px 0;">
+                <span>Крит. пробег (+/-):</span>
+                <span id="mileageAdjustVal" style="font-weight: bold; color: var(--accent);">0 тыс. км</span>
+            </div>
+            <input type="range" id="rangeMileageAdjust" min="-200" max="200" step="10" value="0" class="slider">
+            <div class="row" style="padding: 6px 0 2px 0;">
+                <span>Записи истории +:</span>
+                <span id="historyAddVal" style="font-weight: bold; color: var(--accent);">0</span>
+            </div>
+            <input type="range" id="rangeHistoryAdd" min="0" max="50" step="1" value="0" class="slider">
+        </div>
+    </div> <!-- ЭТОТ ТЕГ ЗАКРЫВАЕТ viewMain! Он должен быть ЗДЕСЬ -->
+
+    <div id="viewSettings" class="hidden">
+        <div class="hdr"><span class="title">Продвинутые настройки</span></div>
+        <button id="btnBack" class="btn back">← Назад</button>
+        <div class="card">
+            <div class="card-title">Тайминги ИИ</div>
+            <div class="grid2">
+                <label class="row"><span>Ожидание (сек)</span><input type="number" id="advTimeout" class="num" min="1"></label>
+                <label class="row"><span>Максимум (сек)</span><input type="number" id="advCap" class="num" min="5"></label>
+                <label class="row"><span>Минимум (сек)</span><input type="number" id="advMinTimeout" class="num" min="1"></label>
+                <label class="row"><span>Опрос (мс)</span><input type="number" id="advPoll" class="num" min="100" step="50"></label>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">Текст ответа ИИ</div>
+            <div class="grid2">
+                <label class="row"><span>Мин. длина</span><input type="number" id="advMinLen" class="num" min="10" step="10"></label>
+                <label class="row"><span>Макс. длина</span><input type="number" id="advMaxLen" class="num" min="500" step="500"></label>
+            </div>
+            <div class="hint">Маркер начала ответа</div>
+            <input type="text" id="advMarkerStart" class="txt">
+            <div class="hint">Маркер конца ответа</div>
+            <input type="text" id="advMarkerEnd" class="txt">
+        </div>
+        <div class="card">
+            <div class="card-title">Отладка</div>
+            <label class="row"><span>Основные логи [AI]</span><input type="checkbox" id="advDebug"><span class="sw"></span></label>
+            <label class="row"><span>Подробные логи каждого цикла</span><input type="checkbox" id="advDebugVerbose"><span class="sw"></span></label>
+            <label class="row"><span>Не закрывать вкладки Google</span><input type="checkbox" id="advDebugKeepTabs"><span class="sw"></span></label>
+        </div>
+        <button id="btnReset" class="btn danger">Сбросить настройки</button>
+    </div>
+</div> <!-- ЭТОТ ТЕГ ЗАКРЫВАЕТ wrapper -->
+<script src="config.js"></script>
+<script src="ai_prompts.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>

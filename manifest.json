@@ -1,0 +1,116 @@
+{
+  "manifest_version": 3,
+  "name": "Universal Auto Assistant",
+  "version": "1.0",
+  "description": "Модульный ИИ-ассистент для параллельного экспорта авто в ZIP (Avito, Дром, Авто.ру)",
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon.png",
+      "32": "icon.png",
+      "48": "icon.png"
+    }
+  },
+  "permissions": [
+    "activeTab",
+    "storage",
+    "downloads",
+    "scripting",
+    "tabs",
+    "notifications",
+    "contextMenus"
+  ],
+  "host_permissions": [
+    "*://*.avito.ru/*",
+    "*://*.avito.st/*",
+    "*://*.avito-st.com/*",
+    "*://*.avitonst.ru/*",
+    "*://*.avtcdn.ru/*",
+    "*://*.drom.ru/*",
+    "*://*.auto.ru/*",
+    "*://*.avto.ru/*",
+    "*://avatars.mds.yandex.net/*",
+    "*://avatars.mds.yandex.ru/*",
+    "*://*.google.com/*",
+    "*://*.google.ru/*",
+    "https://consent.google.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.avito.ru/*"],
+      "js": [
+        "config.js",
+        "parser_avito_core.js",
+        "parser_avito_photos.js",
+        "parser_avito.js",
+        "content_manager.js",
+        "widget_dom.js",
+        "widget_photo.js",
+        "widget_helpers.js",
+        "widget_utils.js",
+        "widget_score.js",
+        "widget_photo_state.js",
+        "widget_events.js",
+        "widget_ai_score.js"
+      ],
+      "run_at": "document_end"
+    },
+    {
+      "matches": ["*://*.drom.ru/*"],
+      "js": [
+        "config.js",
+        "parser_drom_core.js",
+        "parser_drom_photos.js",
+        "parser_drom.js",
+        "content_manager.js",
+        "widget_dom.js",
+        "widget_photo.js",
+        "widget_helpers.js",
+        "widget_utils.js",
+        "widget_score.js",
+        "widget_photo_state.js",
+        "widget_events.js",
+        "widget_ai_score.js"
+      ],
+      "run_at": "document_end"
+    },
+    {
+      "matches": ["*://*.auto.ru/*"],
+      "js": [
+        "config.js",
+        "parser_auto_ru_core.js",
+        "parser_auto_ru_photos.js",
+        "parser_auto_ru.js",
+        "content_manager.js",
+        "widget_dom.js",
+        "widget_photo.js",
+        "widget_helpers.js",
+        "widget_utils.js",
+        "widget_score.js",
+        "widget_photo_state.js",
+        "widget_events.js",
+        "widget_ai_score.js"
+      ],
+      "run_at": "document_end"
+    },
+    {
+      "matches": ["*://*.google.com/*", "*://*.google.ru/*"],
+      "js": ["google_ai_reader.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "commands": {
+    "save-car-shortcut": {
+      "suggested_key": { "default": "Alt+G" },
+      "description": "Быстрое сохранение данных авто"
+    }
+  }
+}
